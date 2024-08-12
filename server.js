@@ -28,6 +28,7 @@ if (process.env.NODE_ENV === 'development') {
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
 
+// use error handler middleware
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 6000;
