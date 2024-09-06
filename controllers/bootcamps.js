@@ -10,25 +10,71 @@ const Bootcamp = require('../models/Bootcamp');
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
 
     let query; 
-    let queryStr = JSON.stringify(req.query);
+    const reqQuery = { ...req.query };
 
+    // Exclude some fields 
+    const removeFields = ['select', 'sort', 'page', 'limit'];
+    // Loop over removedFields and delete it from query
+    removeFields.forEach(param => delete reqQuery[param]);
+
+    // Create query string
+    let queryStr = JSON.stringify(reqQuery);
+
+    // Create MongoDB query operators
     queryStr = queryStr.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
 
+    // Finding query request
     query = Bootcamp.find(JSON.parse(queryStr));
 
-    // try {
-    // const bootcamps = await Bootcamp.find();
+    // Select fields
+    if (req.query.select) {
+        const fields = req.query.select.split(',').join(' ');
+        query = query.select(fields);
+    }
+
+    // Sorting fields
+    if (req.query.sort) {
+        const sortBy = req.query.sort.split(',').join(' ');
+        query = query.sort(sortBy);
+    } else {
+        query = query.sort('-createdAt');
+    }
+
+    // Pagination
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 25;
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+    const total = await Bootcamp.countDocuments();
+
+    query = query.skip(startIndex).limit(limit);
+
+    // Executing query
     const bootcamps = await query;
+
+    // Pagination result
+    const pagination = {};
+
+    if (endIndex < total) {
+        pagination.next = {
+            page: page + 1,
+            limit
+        }
+    }
+
+    if (startIndex > 0) {
+        pagination.prev = {
+            page: page - 1,
+            limit
+        }
+    }
 
     res.status(200).json({
         success: true,
         count: bootcamps.length,
+        pagination,
         data: bootcamps
     })
-    // } catch (err) {
-    //     next(err);
-    //     // res.status(400).json({ success: false, error: `${err}`})
-    // }
 });
 
 // @desc Get one bootcamp
@@ -39,7 +85,6 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 
     if (!bootcamp) {
         return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} is not found`, 404));
-        // return res.status(400).json({ success: false, err: 'Database doesn\'t include this bootcamp'})
     }
     res.status(200).json({
         success: true,
@@ -52,7 +97,7 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 // @access Private
 exports.createBootcamp = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.create(req.body);
-    // console.log(req.body);
+
     res.status(201).json({
         success: true,
         data: bootcamp
@@ -71,7 +116,6 @@ exports.editBootcamp = asyncHandler(async (req, res, next) => {
 
     if (!bootcamp) {
         return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} is not found`, 404));
-        // return res.status(400).json({ success: false, err: 'Database doesn\'t include this bootcamp'})
     }
     res.status(200).json({
         success: true,
@@ -88,7 +132,6 @@ exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
 
     if (!bootcamp) {
         return next(new ErrorResponse(`Bootcamp with id: ${req.params.id} is not found`, 404));
-        // return res.status(400).json({ success: false, err: 'Database doesn\'t include this bootcamp'})
     }
     res.status(200).json({
         success: true,
