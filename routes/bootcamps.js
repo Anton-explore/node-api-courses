@@ -18,24 +18,27 @@ const courseRouter = require('./courses');
 
 const router = express.Router();
 
+// Protect routes from unauthorized access
+const { protect, authorize } = require('../middleware/auth');
+
 // Re-route into other resource router
 router.use('/:bootcampId/courses', courseRouter);
 
 
 router.route('/')
     .get(advancedResults(Bootcamp, 'courses'), getBootcamps)
-    .post(createBootcamp);
+    .post(protect, authorize('publisher', 'admin'), createBootcamp);
 
 router.route('/:id')
     .get(getBootcamp)
-    .put(editBootcamp)
-    .delete(deleteBootcamp);
+    .put(protect, authorize('publisher', 'admin'), editBootcamp)
+    .delete(protect, authorize('publisher', 'admin'), deleteBootcamp);
 
 router.route('/radius/:zipcode/:distance')
     .get(getBootcampsInRadius);
 
 router.route('/:id/photo')
-    .put(bootcampPhotoUpload);
+    .put(protect, authorize('publisher', 'admin'), bootcampPhotoUpload);
 
 
 module.exports = router;
