@@ -66,12 +66,11 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
 
     const course = await Course.create(req.body);
 
-    res.status(200).json({
+    res.status(201).json({
         success: true,
         data: course
     })
 })
-
 
 // @desc Update course
 // @route PUT /api/v1/courses/:id
@@ -117,9 +116,9 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
 
     if (!course) {
         return next(new ErrorResponse(`No course with such id: ${req.params.id}`), 400);
-				}
+	}
 	
-				// Check course ownership
+	// Check course ownership
     if (course.user.toString() !== req.user.id && req.user.role !== 'admin') {
         return next(
             new ErrorResponse(
