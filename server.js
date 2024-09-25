@@ -3,6 +3,9 @@ const express = require('express');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
 const xss = require('./middleware/xss-sanitizer');
+const rateLimiter = require('express-rate-limit');
+const hpp = require('hpp');
+const cors = require('cors')
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
@@ -51,8 +54,29 @@ app.use(helmet());
 // Set XSS filter
 app.use(xss);
 
+// Rate limiting
+const limiter = rateLimiter({
+    windowMs: 10 * 60 * 1000, // 10 minutes
+    max: 100  // max attempts
+});
+
+app.use(limiter);
+
+// Prevent HTTP parameters pollution
+app.use(hpp());
+
+// Apply all cors
+// const corsOptions = {
+//     origin: '*',
+//     optionsSuccessStatus: 200
+// }
+app.use(cors());
+
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// CORS preflight
+// app.options('*', cors())
 
 // Mount routers
 app.use('/api/v1/bootcamps', bootcamps);
@@ -63,7 +87,7 @@ app.use('/api/v1/users', users);
 // use error handler middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 3000;
 
 const server = app.listen(
     PORT,
