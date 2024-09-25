@@ -1,0 +1,1219 @@
+{
+	"info": {
+		"_postman_id": "791b98d7-4647-4bd9-9683-7ee21ac72d50",
+		"name": "DevCamp API",
+		"description": "Backend API for the DevCamper app to manage bootcamps, courses, users, authentication",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36453182"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"item": [
+				{
+					"name": "Get all bootcamps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							]
+						},
+						"description": "Fetch all bootcamps from database"
+					},
+					"response": []
+				},
+				{
+					"name": "Get single Bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d713995b721c3bb38c1f5d0",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713995b721c3bb38c1f5d0"
+							]
+						},
+						"description": "Get single Bootcamp by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Edit single Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Bootcamp 1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/66eeb7ab7e0d57106f1476a4",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"66eeb7ab7e0d57106f1476a4"
+							]
+						},
+						"description": "Edit single bootcamp by ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWMyZGM5ZjUwZjY2OTllZTc1ZTM4NCIsImlhdCI6MTcyNjc2MzMwMiwiZXhwIjoxNzI5MzU1MzAyfQ.aCJxCxvvClZ9XId3LxCc_a9fHjCHZwMULXlCCAHTo9c",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\t\"name\": \"TEST BOOTCAMP 1\",\n\t\t\"description\": \"Test test test\",\n\t\t\"website\": \"https://devcentral.com\",\n\t\t\"phone\": \"(444) 444-4444\",\n\t\t\"email\": \"enroll@devcentral.com\",\n\t\t\"address\": \"45 Upper College Rd Kingston RI 02881\",\n\t\t\"careers\": [\n\t\t\t\"Mobile Development\",\n\t\t\t\"Web Development\",\n\t\t\t\"Data Science\",\n\t\t\t\"Business\"\n\t\t],\n\t\t\"housing\": false,\n\t\t\"jobAssistance\": true,\n\t\t\"jobGuarantee\": true,\n\t\t\"acceptGi\": true\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							]
+						},
+						"description": "Add new bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete single Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/66f15c0a482ececec11d6cf2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"66f15c0a482ececec11d6cf2"
+							]
+						},
+						"description": "Delete single bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Get bootcamps by distance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/radius/02118/130",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"radius",
+								"02118",
+								"130"
+							]
+						},
+						"description": "Get bootcamps whithin a radius of specific zipcode"
+					},
+					"response": []
+				},
+				{
+					"name": "Get bootcamps by query parameter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?careers[in]=Business&averageCost[gte]=8000&location.city=Boston",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "careers[in]",
+									"value": "Business"
+								},
+								{
+									"key": "averageCost[gte]",
+									"value": "8000"
+								},
+								{
+									"key": "location.city",
+									"value": "Boston"
+								}
+							]
+						},
+						"description": "Get bootcamps by query parameters with MongoDB special commands: \"in, gte, lte\" etc"
+					},
+					"response": []
+				},
+				{
+					"name": "Get bootcamps select fields only",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?select=name,description,housing&housing=true",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,description,housing"
+								},
+								{
+									"key": "housing",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Get all bootcamps, but return only selected fields from each bootcamps"
+					},
+					"response": []
+				},
+				{
+					"name": "Sorting selected bootcamps by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?select=name,description,housing&sort=-name",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,description,housing"
+								},
+								{
+									"key": "sort",
+									"value": "-name"
+								}
+							]
+						},
+						"description": "Sorted bootcamps by selected field. In that case it's a name and \"-\" means descending order"
+					},
+					"response": []
+				},
+				{
+					"name": "Bootcamps pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps?select=name&limit=2&page=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Bootcamps pagination. Limit - number of bootcamps per page, page - page of pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload a photo to Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/kseniaderevianko/Downloads/OIG3.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff787/photo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff787",
+								"photo"
+							]
+						},
+						"description": "Upload a photo of bootcamp"
+					},
+					"response": []
+				}
+			],
+			"description": "Bootcamps CRUD functionality"
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get all courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							]
+						},
+						"description": "Get all corses in total"
+					},
+					"response": []
+				},
+				{
+					"name": "Get courses for bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d713995b721c3bb38c1f5d0/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713995b721c3bb38c1f5d0",
+								"courses"
+							]
+						},
+						"description": "Get all courses related to specific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Get single course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/66eacac8a7f011d9fdbe70da",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"66eacac8a7f011d9fdbe70da"
+							]
+						},
+						"description": "Get single course by id"
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Course for specific Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Test Course 4\",\n    \"description\": \"This course will provide for testing application\",\n    \"weeks\": 8,\n    \"tuition\": 142999,\n    \"minimumSkill\": \"beginner\",\n    \"scholarhipsAvailable\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713a66ec8f2b88b8f830b8",
+								"courses"
+							]
+						},
+						"description": "Create course for specific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tuition\": 13000,\n    \"minimumSkill\": \"advanced\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/66eaaebb233868eb7509180a",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"66eaaebb233868eb7509180a"
+							]
+						},
+						"description": "Update specific course"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/5d725cfec4ded7bcb480eaa7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5d725cfec4ded7bcb480eaa7"
+							]
+						},
+						"description": "Delete specific course"
+					},
+					"response": []
+				},
+				{
+					"name": "Courses pagination",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses?page=2&limit=2",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						},
+						"description": "Course pagination. Limit - number of courses per page, page - page of pagination"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Registration of new User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Astra Militarium 2\",\n    \"email\": \"astra.m2@gmail.com\",\n    \"password\": \"123456\",\n    \"role\": \"publisher\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Create new user"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@gmail.com\",\n    \"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Log in user by email and password"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User data via token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWMyZGM5ZjUwZjY2OTllZTc1ZTM4NCIsImlhdCI6MTcyNjc2MzMwMiwiZXhwIjoxNzI5MzU1MzAyfQ.aCJxCxvvClZ9XId3LxCc_a9fHjCHZwMULXlCCAHTo9c",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"user"
+							]
+						},
+						"description": "Get all user data by token"
+					},
+					"response": []
+				},
+				{
+					"name": "Get recover token for password changes",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"astra.m2@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/recover",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"recover"
+							]
+						},
+						"description": "Get recover token for change password"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\": \"1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/reset/e560fc585443ed5fd4edd600368a84ca30482a39",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"reset",
+								"e560fc585443ed5fd4edd600368a84ca30482a39"
+							]
+						},
+						"description": "Make request with new password for specific user."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWMyZGM5ZjUwZjY2OTllZTc1ZTM4NCIsImlhdCI6MTcyNjc2MzMwMiwiZXhwIjoxNzI5MzU1MzAyfQ.aCJxCxvvClZ9XId3LxCc_a9fHjCHZwMULXlCCAHTo9c",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Greg Militarium\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/update-user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"update-user"
+							]
+						},
+						"description": "Update user data"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout User",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Removed the attempt to parse HTML response as JSON",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/logout",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logout"
+							]
+						},
+						"description": "Logout user, delete cokies"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2ZWMyZGM5ZjUwZjY2OTllZTc1ZTM4NCIsImlhdCI6MTcyNjc2MzMwMiwiZXhwIjoxNzI5MzU1MzAyfQ.aCJxCxvvClZ9XId3LxCc_a9fHjCHZwMULXlCCAHTo9c",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentPassword\": \"1234567\",\n    \"newPassword\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/update-password",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"update-password"
+							]
+						},
+						"description": "Update password for logged user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": "For admins only. Get all users."
+					},
+					"response": []
+				},
+				{
+					"name": "Get one user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/users/5c8a1d5b0190b214360dc036",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"5c8a1d5b0190b214360dc036"
+							]
+						},
+						"description": "For admins only. Get user by id."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/users/66f14076e3e8386b865f52b7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"66f14076e3e8386b865f52b7"
+							]
+						},
+						"description": "For admins only. Delete user by id."
+					},
+					"response": []
+				},
+				{
+					"name": "Create new user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Rose Wizerspoon\",\n    \"email\": \"r.w@gmail.com\",\n    \"password\": \"123456\",\n    \"role\": \"user\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						},
+						"description": "For admins only. Create new user from admin account."
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": "JSON Type",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Jerry Wiliams IV\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/5c8a1d5b0190b214360dc036",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"5c8a1d5b0190b214360dc036"
+							]
+						},
+						"description": "For admins only. Update user by id from admin."
+					},
+					"response": []
+				}
+			],
+			"description": "For admin access only."
+		}
+	]
+}
