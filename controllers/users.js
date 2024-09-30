@@ -15,6 +15,10 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 exports.getUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
+    if (!user) {
+        return next(new ErrorResponse(`No user with such id: ${req.params.id}`, 404));
+    }
+
     res.status(200).json({
         success: true,
         data: user
@@ -42,6 +46,10 @@ exports.updateUser = asyncHandler(async (req, res, next) => {
         runValidators: true
     });
 
+    if (!user) {
+        return next(new ErrorResponse(`No user with such id: ${req.params.id}`, 404));
+    }
+
     res.status(200).json({
         success: true,
         data: user
@@ -56,7 +64,7 @@ exports.deleteUser = asyncHandler(async (req, res, next) => {
     const user = await User.findById(req.params.id);
 
     if (!user) {
-        return next(new ErrorResponse(`No user with such id: ${req.params.id}`), 400);
+        return next(new ErrorResponse(`No user with such id: ${req.params.id}`, 404));
     }
     await user.deleteOne();
 
