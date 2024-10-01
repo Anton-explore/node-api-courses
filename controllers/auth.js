@@ -56,12 +56,16 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route POST /api/v1/auth/user
 // @access Private
 exports.getUser = asyncHandler(async (req, res, next) => {
-    const user = await User.findById(req.user.id);
+	const user = await User.findById(req.user.id);
+	
+	if (!user) {
+		return next(new ErrorResponse(`No user with such id: ${req.params.id}`), 404);
+	}
 
-    res.status(200).json({
-        success: true,
-        data: user
-    })
+	res.status(200).json({
+		success: true,
+		data: user
+	})
 });
 
 // @desc Logout user / clear token data 

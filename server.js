@@ -14,6 +14,7 @@ const cookieParser = require('cookie-parser');
 const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
+const setupSwagger = require('./swagger');
 
 // Load environments
 dotenv.config({ path: './config/config.env' });
@@ -26,6 +27,7 @@ const bootcamps = require('./routes/bootcamps');
 const courses = require('./routes/courses');
 const auth = require('./routes/auth');
 const users = require('./routes/users');
+const reviews = require('./routes/reviews');
 
 // Initialize app
 const app = express();
@@ -66,11 +68,12 @@ app.use(limiter);
 app.use(hpp());
 
 // Apply all cors
-// const corsOptions = {
-//     origin: '*',
-//     optionsSuccessStatus: 200
-// }
-app.use(cors());
+const corsOptions = {
+    origin: '*',
+    credentials: true,
+    optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -83,6 +86,10 @@ app.use('/api/v1/bootcamps', bootcamps);
 app.use('/api/v1/courses', courses);
 app.use('/api/v1/auth', auth);
 app.use('/api/v1/users', users);
+app.use('/api/v1/reviews', reviews);
+
+// use swagger to generate docs
+setupSwagger(app);
 
 // use error handler middleware
 app.use(errorHandler);

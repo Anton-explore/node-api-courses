@@ -33,7 +33,7 @@ exports.getCourse = asyncHandler(async (req, res, next) => {
         });
 
     if (!course) {
-        return next(new ErrorResponse(`No course with such id: ${req.params.id}`), 400);
+        return next(new ErrorResponse(`No course with such id: ${req.params.id}`, 404));
     }
 
     res.status(200).json({
@@ -52,7 +52,7 @@ exports.addCourse = asyncHandler(async (req, res, next) => {
     const bootcamp = await Bootcamp.findById(req.params.bootcampId)
 
     if (!bootcamp) {
-        return next(new ErrorResponse(`No bootcamp with such id: ${req.params.bootcampId}`), 400);
+        return next(new ErrorResponse(`No bootcamp with such id: ${req.params.bootcampId}`, 404));
     }
     // Check bootcamp ownership
     if (bootcamp.user.toString() !== req.user.id && req.user.role !== 'admin') {
@@ -81,9 +81,9 @@ exports.updateCourse = asyncHandler(async (req, res, next) => {
 
     if (!course) {
         return next(
-            new ErrorResponse(`No course with such id: ${req.params.id}`),
-            400
-        );
+            new ErrorResponse(`No course with such id: ${req.params.id}`,
+            404
+        ));
 				}
 	
 				// Check course ownership
@@ -115,7 +115,7 @@ exports.deleteCourse = asyncHandler(async (req, res, next) => {
     const course = await Course.findById(req.params.id)
 
     if (!course) {
-        return next(new ErrorResponse(`No course with such id: ${req.params.id}`), 400);
+        return next(new ErrorResponse(`No course with such id: ${req.params.id}`, 404));
 	}
 	
 	// Check course ownership
