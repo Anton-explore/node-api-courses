@@ -67,12 +67,22 @@ app.use(limiter);
 // Prevent HTTP parameters pollution
 app.use(hpp());
 
-// Apply all cors
+
+// Define CORS
+const allowedOrigins = ['http://localhost:5173'];
+function allowOrigin(origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+    } else {
+        callback(new Error('Not allowed by CORS'));
+    }
+}
 const corsOptions = {
-    origin: '*',
+    origin: allowOrigin,
     credentials: true,
     optionsSuccessStatus: 200
 }
+// Apply cors
 app.use(cors(corsOptions));
 
 // Set static folder
