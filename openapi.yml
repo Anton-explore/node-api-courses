@@ -1,0 +1,702 @@
+openapi: 3.0.0
+info:
+  title: DevCamp API
+  description: >-
+    Backend API for the DevCamper app to manage bootcamps, courses, users,
+    authentication
+  version: 1.0.0
+servers:
+    - url: https://node-api-courses.onrender.com
+    - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    noauthAuth:
+      type: http
+      scheme: noauth
+tags:
+  - name: Bootcamps
+    description: Bootcamps CRUD functionality
+  - name: Courses
+  - name: Authentication
+  - name: Users
+    description: For admin access only.
+  - name: Reviews
+    description: Manage course reviews
+paths:
+  /api/v1/bootcamps:
+    get:
+      tags:
+        - Bootcamps
+      summary: Bootcamps pagination
+      description: >-
+        Bootcamps pagination. Limit - number of bootcamps per page, page - page
+        of pagination
+      parameters:
+        - name: select
+          in: query
+          schema:
+            type: string
+          example: name
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '2'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '2'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Bootcamps
+      summary: Add new Bootcamp
+      description: Add new bootcamp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: TEST Purpose BOOTCAMP 1
+                description: Test test test
+                website: https://devcentral.com
+                phone: (444) 444-4444
+                email: enroll@devcentral.com
+                address: 45 Upper College Rd Kingston RI 02881
+                careers:
+                  - Mobile Development
+                  - Web Development
+                  - Data Science
+                  - Business
+                housing: false
+                jobAssistance: true
+                jobGuarantee: true
+                acceptGi: true
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a1b7b292f5f8ceff788:
+    get:
+      tags:
+        - Bootcamps
+      summary: Get single Bootcamp
+      description: Get single Bootcamp by ID
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/66eeb7ab7e0d57106f1476a4:
+    put:
+      tags:
+        - Bootcamps
+      summary: Edit single Bootcamp
+      description: Edit single bootcamp by ID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Test Bootcamp 1
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/66f15c0a482ececec11d6cf2:
+    delete:
+      tags:
+        - Bootcamps
+      summary: Delete single Bootcamp
+      description: Delete single bootcamp
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/radius/02118/130:
+    get:
+      tags:
+        - Bootcamps
+      summary: Get bootcamps by distance
+      description: Get bootcamps whithin a radius of specific zipcode
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a037b292f5f8ceff787/photo:
+    put:
+      tags:
+        - Bootcamps
+      summary: Upload a photo to Bootcamp
+      description: Upload a photo of bootcamp
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses:
+    get:
+      tags:
+        - Courses
+      summary: Courses pagination
+      description: >-
+        Course pagination. Limit - number of courses per page, page - page of
+        pagination
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '2'
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '2'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d713995b721c3bb38c1f5d0/courses:
+    get:
+      tags:
+        - Courses
+      summary: Get courses for bootcamp
+      description: Get all courses related to specific bootcamp
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses/66eacac8a7f011d9fdbe70da:
+    get:
+      tags:
+        - Courses
+      summary: Get single course
+      description: Get single course by id
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d713a66ec8f2b88b8f830b8/courses:
+    post:
+      tags:
+        - Courses
+      summary: Create new Course for specific Bootcamp
+      description: Create course for specific bootcamp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Test Course 4
+                description: This course will provide for testing application
+                weeks: 8
+                tuition: 142999
+                minimumSkill: beginner
+                scholarhipsAvailable: true
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses/66eaaebb233868eb7509180a:
+    put:
+      tags:
+        - Courses
+      summary: Update Course
+      description: Update specific course
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                tuition: 13000
+                minimumSkill: advanced
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses/5d725cfec4ded7bcb480eaa7:
+    delete:
+      tags:
+        - Courses
+      summary: Delete Course
+      description: Delete specific course
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Registration of new User
+      description: Create new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Reviewer
+                email: rev@gmail.com
+                password: '123456'
+                role: user
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: Login User
+      description: Log in user by email and password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: user@gmail.com
+                password: '123456'
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/user:
+    get:
+      tags:
+        - Authentication
+      summary: Get User data via token
+      description: Get all user data by token
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/recover:
+    post:
+      tags:
+        - Authentication
+      summary: Get recover token for password changes
+      description: Get recover token for change password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: astra.m2@gmail.com
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/reset/e560fc585443ed5fd4edd600368a84ca30482a39:
+    put:
+      tags:
+        - Authentication
+      summary: Reset password
+      description: Make request with new password for specific user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: '1234567'
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/update-user:
+    put:
+      tags:
+        - Authentication
+      summary: Update User
+      description: Update user data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Greg Militarium
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/logout:
+    get:
+      tags:
+        - Authentication
+      summary: Logout User
+      description: Logout user, delete cokies
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/update-password:
+    put:
+      tags:
+        - Authentication
+      summary: Update Password
+      description: Update password for logged user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                currentPassword: '1234567'
+                newPassword: '123456'
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: For admins only. Get all users.
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/5c8a1d5b0190b214360dc036:
+    get:
+      tags:
+        - Users
+      summary: Get one user
+      description: For admins only. Get user by id.
+      security:
+        - noauthAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Users
+      summary: Update user
+      description: For admins only. Update user by id from admin.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Jerry Wiliams IV
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/66f14076e3e8386b865f52b7:
+    delete:
+      tags:
+        - Users
+      summary: Delete user
+      description: For admins only. Delete user by id.
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/:
+    post:
+      tags:
+        - Users
+      summary: Create new user
+      description: For admins only. Create new user from admin account.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Rose Wizerspoon
+                email: r.w@gmail.com
+                password: '123456'
+                role: user
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: Get all reviews
+      description: >-
+        Get all reviews from database and populate it with bootcamp name and
+        description
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: Get reviews for bootcamp
+      description: Get reviews for specific bootcamp
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reviews/5d7a514b5d2c12c7449be024:
+    get:
+      tags:
+        - Reviews
+      summary: Get one review
+      description: >-
+        Get one review from database by id and populate it with bootcamp name
+        and description
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/66faf9da9b8c6a71d3aed364/reviews:
+    post:
+      tags:
+        - Reviews
+      summary: Add review
+      description: >-
+        Add review for bootcamp. User can't submit more then one review for each
+        bootcamp
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Another test review
+                text: Checking review system 2
+                rating: 7
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reviews/66fafb48f701817f02de8417:
+    put:
+      tags:
+        - Reviews
+      summary: Update review
+      description: Update review. Only owner or admins can update it.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: Updated test review
+                text: This review was updated by owner
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          description: JSON Type
+          example: application/json
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Reviews
+      summary: Delete review
+      description: Delete review. Only owner and admins can delete review.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}

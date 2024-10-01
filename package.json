@@ -27,6 +27,8 @@
     "node-geocoder": "^4.4.0",
     "nodemailer": "^6.9.15",
     "slugify": "^1.6.6",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "xss-filters": "^1.2.7"
   },
   "devDependencies": {
